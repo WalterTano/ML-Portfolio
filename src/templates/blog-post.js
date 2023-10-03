@@ -14,6 +14,7 @@ import {
 import { avatar as avatarStyle } from "../components/ui.css"
 import * as styles from "./blog-post.css"
 import SEOHead from "../components/head"
+import ReactMarkdown from "react-markdown";
 
 export default function BlogPost(props) {
   const post = props.data.datoCmsBlogpost;
@@ -50,18 +51,23 @@ export default function BlogPost(props) {
           <Text center>{post.date}</Text>
           <Space size={4} />
           {post.image && (
-            <GatsbyImage
-              alt={post.image.alt}
-              image={post.image.gatsbyImageData}
-            />
+            <Box center>
+              <GatsbyImage
+                alt={post.image.alt}
+                image={post.image.gatsbyImageData}
+              />
+            </Box>
           )}
           <Space size={5} />
-          <div
-            className={styles.blogPost}
-            dangerouslySetInnerHTML={{
-              __html: post.html,
-            }}
-          />
+          {
+            post.isMarkdown ? <ReactMarkdown>{post.html}</ReactMarkdown>
+            : <div
+              className={styles.blogPost}
+              dangerouslySetInnerHTML={{
+                __html: post.html,
+              }}
+            />
+          }
         </Box>
       </Container>
     </Layout>
@@ -79,6 +85,7 @@ export const query = graphql`
       excerpt
       date
       html
+      isMarkdown
       image {
         url
         gatsbyImageData
