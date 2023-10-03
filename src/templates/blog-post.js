@@ -1,4 +1,5 @@
 import * as React from "react"
+import { graphql } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import {
@@ -15,48 +16,50 @@ import * as styles from "./blog-post.css"
 import SEOHead from "../components/head"
 
 export default function BlogPost(props) {
+  const post = props.data.datoCmsBlogpost;
+
   return (
     <Layout>
       <Container>
         <Box paddingY={5}>
           <Heading as="h1" center>
-            {props.title}
+            {post.title}
           </Heading>
           <Space size={4} />
-          {props.author && (
+          {post.author && (
             <Box center>
               <Flex>
-                {props.author.avatar &&
-                  (!!props.author.avatar.gatsbyImageData ? (
+                {post.author.avatar &&
+                  (!!post.author.avatar.gatsbyImageData ? (
                     <Avatar
-                      {...props.author.avatar}
-                      image={props.author.avatar.gatsbyImageData}
+                      {...post.author.avatar}
+                      image={post.author.avatar.gatsbyImageData}
                     />
                   ) : (
                     <img
-                      src={props.author.avatar.url}
-                      alt={props.author.name}
+                      src={post.author.avatar.url}
+                      alt={post.author.name}
                       className={avatarStyle}
                     />
                   ))}
-                <Text variant="bold">{props.author.name}</Text>
+                <Text variant="bold">{post.author.name}</Text>
               </Flex>
             </Box>
           )}
           <Space size={4} />
-          <Text center>{props.date}</Text>
+          <Text center>{post.date}</Text>
           <Space size={4} />
-          {props.image && (
+          {post.image && (
             <GatsbyImage
-              alt={props.image.alt}
-              image={props.image.gatsbyImageData}
+              alt={post.image.alt}
+              image={post.image.gatsbyImageData}
             />
           )}
           <Space size={5} />
           <div
             className={styles.blogPost}
             dangerouslySetInnerHTML={{
-              __html: props.html,
+              __html: post.html,
             }}
           />
         </Box>
@@ -65,5 +68,22 @@ export default function BlogPost(props) {
   )
 }
 export const Head = (props) => {
-  return <SEOHead {...props} description={props.excerpt} />
+  return <SEOHead {...props} description={props.data.datoCmsBlogpost.excerpt} />
 }
+export const query = graphql`
+  query PageContent($id: String!) {
+    datoCmsBlogpost(id: { eq: $id }) {
+      id
+      slug
+      title
+      excerpt
+      date
+      html
+      image {
+        url
+        gatsbyImageData
+        alt
+      }
+    }
+  }
+`
