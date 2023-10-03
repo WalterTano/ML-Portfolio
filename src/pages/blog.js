@@ -56,33 +56,44 @@ function PostCardSmall({ slug, image, title, category, ...props }) {
 }
 
 export default function BlogIndex(props) {
-  const posts = props?.data?.allDatoCmsBlogpost?.nodes || [];
-  const featuredPosts = posts.filter((p) => p.category === "Featured") || []
-  const regularPosts = posts.filter((p) => p.category !== "Featured") || []
+  const queryParams = new URLSearchParams(props.location.search);
+  const category = queryParams.get('category');
+
+  let posts = props?.data?.allDatoCmsBlogpost?.nodes || [];
+  if (category) {
+    posts = posts.filter((p) => p.category?.toLowerCase() === category?.toLowerCase()) || [];
+  }
+  const hasPosts = posts && posts.length > 0;
 
   return (
     <Layout>
       <Container>
-        <Box paddingY={4}>
-          <Heading as="h1">Blog</Heading>
-          <FlexList variant="start" gap={0} gutter={3} responsive>
-            {featuredPosts.map((post) => (
-              <Box as="li" key={post.id} padding={3} width="half">
-                <PostCard {...post} />
-              </Box>
-            ))}
-          </FlexList>
-        </Box>
-        <Box paddingY={4}>
-          <Subhead>Artículos</Subhead>
-          <FlexList responsive wrap gap={0} gutter={3} variant="start">
-            {regularPosts.map((post) => (
-              <Box as="li" key={post.id} padding={3} width="third">
-                <PostCardSmall {...post} />
-              </Box>
-            ))}
-          </FlexList>
-        </Box>
+        {
+          hasPosts && 
+          <Box paddingY={4}>
+            <Heading as="h1">{ category ? category : 'Blog'}</Heading>
+            <FlexList variant="start" gap={0} gutter={3} responsive>
+              {posts.map((post) => (
+                <Box as="li" key={post.id} padding={3} width="half">
+                  <PostCard {...post} category={category ? '' : post.category} />
+                </Box>
+              ))}
+            </FlexList>
+          </Box>
+        }
+        {
+          !hasPosts && 
+          <Box padding={5} center>
+            <Text variant="subheadSmall">
+              Lo siento, actualmente no hay ningún artículo de blog disponible para la categoría "{category}".
+            </Text>
+            <Box paddingY={5}>
+              <Heading color="primary">
+                : (
+              </Heading>
+            </Box>
+          </Box>
+        }
       </Container>
     </Layout>
   )
@@ -99,6 +110,7 @@ export const query = graphql`
         slug
         title
         excerpt
+        category
         image {
           alt
           gatsbyImageData

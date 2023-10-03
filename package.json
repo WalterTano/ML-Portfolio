@@ -11,7 +11,8 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "setup": "node ./scripts/setup.js"
+    "setup": "node ./scripts/setup.js",
+    "deploy": "gatsby build && gh-pages -d public -b master"
   },
   "dependencies": {
     "@fontsource/dm-mono": "^4.5.9",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "chalk": "^4.1.0",
+    "gh-pages": "^6.0.0",
     "husky": "^7.0.4",
     "inquirer": "^8.2.0",
     "lint-staged": "^12.3.5",
