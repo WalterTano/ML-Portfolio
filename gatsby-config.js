@@ -5,6 +5,7 @@ require("dotenv").config({
 })
 
 module.exports = {
+  pathPrefix: "/ML-Portfolio",
   siteMetadata: {
     siteUrl: "https://gatsbydatocmshomepage.gatsbyjs.io/",
     title: "Machine Learning - Walter Taño",
