@@ -7,9 +7,9 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     siteUrl: "https://gatsbydatocmshomepage.gatsbyjs.io/",
-    title: "Gatsby DatoCMS Homepage Starter",
-    author: `Gatsby`,
-    description: "A Gatsby Starter for building homepages with DatoCMS",
+    title: "Machine Learning - Walter Taño",
+    author: `Walter Taño`,
+    description: "Mi portafolios de Machine Learning",
   },
   plugins: [
     {
@@ -23,12 +23,11 @@ module.exports = {
     "gatsby-plugin-image",
     "gatsby-transformer-sharp",
     "gatsby-plugin-vanilla-extract",
-    "gatsby-theme-datocms-blog",
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        name: "Gatsby Starter DatoCMS Homepage",
-        short_name: "Gatsby",
+        name: "Machine Learning - Walter Taño",
+        short_name: "ML Portfolio",
         start_url: "/",
         // These can be imported once ESM support lands
         background_color: "#ffffff",

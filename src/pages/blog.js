@@ -1,5 +1,5 @@
-/*
 import * as React from "react"
+import { graphql } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import {
@@ -55,9 +55,10 @@ function PostCardSmall({ slug, image, title, category, ...props }) {
   )
 }
 
-export default function BlogIndex({ posts }) {
-  const featuredPosts = posts.filter((p) => p.category === "Featured")
-  const regularPosts = posts.filter((p) => p.category !== "Featured")
+export default function BlogIndex(props) {
+  const posts = props?.data?.allDatoCmsBlogpost?.nodes || [];
+  const featuredPosts = posts.filter((p) => p.category === "Featured") || []
+  const regularPosts = posts.filter((p) => p.category !== "Featured") || []
 
   return (
     <Layout>
@@ -73,7 +74,7 @@ export default function BlogIndex({ posts }) {
           </FlexList>
         </Box>
         <Box paddingY={4}>
-          <Subhead>Product Updates</Subhead>
+          <Subhead>Artículos</Subhead>
           <FlexList responsive wrap gap={0} gutter={3} variant="start">
             {regularPosts.map((post) => (
               <Box as="li" key={post.id} padding={3} width="third">
@@ -89,4 +90,20 @@ export default function BlogIndex({ posts }) {
 export const Head = () => {
   return <SEOHead title="Blog" />
 }
-*/
+
+export const query = graphql`
+  query {
+    allDatoCmsBlogpost {
+      nodes {
+        id
+        slug
+        title
+        excerpt
+        image {
+          alt
+          gatsbyImageData
+        }
+      }
+    }
+  }
+`
