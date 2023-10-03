@@ -14,7 +14,7 @@ import {
 import { avatar as avatarStyle } from "../components/ui.css"
 import * as styles from "./blog-post.css"
 import SEOHead from "../components/head"
-import ReactMarkdown from "react-markdown";
+import Markdown from 'markdown-to-jsx'
 
 export default function BlogPost(props) {
   const post = props.data.datoCmsBlogpost;
@@ -60,7 +60,7 @@ export default function BlogPost(props) {
           )}
           <Space size={5} />
           {
-            post.isMarkdown ? <ReactMarkdown>{post.html}</ReactMarkdown>
+            post.isMarkdown ? <Markdown>{post.html}</Markdown>
             : <div
               className={styles.blogPost}
               dangerouslySetInnerHTML={{
