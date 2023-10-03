@@ -5,6 +5,7 @@ export default function GatsbyDatoLogo() {
   
   return (<StaticImage
     src="../favicon.png"
+    placeholder="none"
     width="64"
   />);
 }
