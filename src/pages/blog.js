@@ -72,7 +72,7 @@ export default function BlogIndex(props) {
           hasPosts && 
           <Box paddingY={4}>
             <Heading as="h1">{ category ? category : 'Blog'}</Heading>
-            <FlexList variant="start" gap={0} gutter={3} responsive>
+            <FlexList variant="start" gap={0} gutter={3} responsive wrap>
               {posts.map((post) => (
                 <Box as="li" key={post.id} padding={3} width="half">
                   <PostCard {...post} category={category ? '' : post.category} />
