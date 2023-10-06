@@ -11,16 +11,16 @@ export default function NotFound() {
       <Box paddingY={4}>
         <Container>
           <Flex variant="column">
-            <Heading variant="mega" className={styles.heading}>
+            <Heading color="primary" variant="mega" className={styles.heading}>
               404
             </Heading>
-            <Heading as="h1">Page not found</Heading>
+            <Heading as="h1">Página no encontrada</Heading>
             <Flex variant="column" gap={0}>
               <Text variant="lead" className={styles.text}>
-                Sorry! We couldn’t find the page you were looking for.
+                Lo siento! Parece que la página que estabas buscando no existe.
               </Text>
               <Link to="/" className={styles.link}>
-                <span>Back to home</span>
+                <span>Volver al inicio</span>
                 <ChevronRight className={styles.linkChevron} />
               </Link>
             </Flex>
