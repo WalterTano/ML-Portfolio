@@ -61,7 +61,11 @@ export default function BlogIndex(props) {
 
   let posts = props?.data?.allDatoCmsBlogpost?.nodes || [];
   if (category) {
-    posts = posts.filter((p) => p.category?.toLowerCase() === category?.toLowerCase()) || [];
+    posts = posts.filter((p) => {
+      const categoryList = p.category?.toLowerCase().split(',') || [];
+
+      return categoryList.some(c => c.trim() === category?.toLowerCase());
+    }) || [];
   }
   const hasPosts = posts && posts.length > 0;
 
